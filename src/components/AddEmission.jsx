@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 const AddEmission = ({ onAddData }) => {
   const [formData, setFormData] = useState({
@@ -36,7 +37,7 @@ const AddEmission = ({ onAddData }) => {
       return;
     }
 
-    onAddData(formData);
+    onAddData({ ...formData, id: uuidv4() });
     navigate('/');
     toast.success('Data added successfully.', {
       position: 'top-right',

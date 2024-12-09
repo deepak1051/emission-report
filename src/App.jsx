@@ -4,32 +4,16 @@ import Homepage from './components/Homepage';
 import Header from './components/Header';
 import { useState } from 'react';
 
-const dummyData = [
-  {
-    id: 1,
-    description: 'Transport emissions',
-    scope: 'Scope 1',
-    emission: 150,
-    date: '2024-12-01',
-  },
-  {
-    id: 2,
-    description: 'Electricity usage',
-    scope: 'Scope 2',
-    emission: 300,
-    date: '2024-12-05',
-  },
-  {
-    id: 3,
-    description: 'Supplier emissions',
-    scope: 'Scope 3',
-    emission: 500,
-    date: '2024-12-09',
-  },
-];
+import { mockData } from '../data';
 
 function App() {
-  const [data, setData] = useState(dummyData);
+  const [data, setData] = useState(mockData);
+
+  const onUpdateData = (updatedData) => {
+    setData((prevData) =>
+      prevData.map((item) => (item.id === updatedData.id ? updatedData : item))
+    );
+  };
 
   const onAddData = (data) => {
     setData((prevData) => [...prevData, data]);
@@ -39,7 +23,10 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Homepage data={data} />} />
+        <Route
+          path="/"
+          element={<Homepage data={data} onUpdateData={onUpdateData} />}
+        />
         <Route path="/add" element={<AddEmission onAddData={onAddData} />} />
       </Routes>
     </BrowserRouter>
