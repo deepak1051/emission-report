@@ -32,6 +32,11 @@ export default function SingleDataRow({ row, onUpdateData }) {
     toast.success('Data updated successfully.', { position: 'top-right' });
   };
 
+  const handleCancel = () => {
+    setIsEditing(false);
+    setFormData(row);
+  };
+
   return (
     <tr className="border-t">
       <td className="px-6 py-4">
@@ -99,7 +104,7 @@ export default function SingleDataRow({ row, onUpdateData }) {
               Save
             </button>
             <button
-              // onClick={handleCancelClick}
+              onClick={handleCancel}
               className="bg-red-500 text-white px-3 py-1 rounded"
             >
               Cancel
